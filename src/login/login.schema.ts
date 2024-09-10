@@ -5,17 +5,19 @@ import { HydratedDocument } from 'mongoose';
 export type LoginDocument = HydratedDocument<Login>;
 
 @Schema()
+//The @Schema() decorator marks a class as a schema definition. It maps our Login class to a
+//MongoDB collection of the same name, but with an additional “s” at the end -
 export class Login {
-  @Prop()
+  @Prop({ required: true })
   username: string;
 
-  @Prop()
+  @Prop({ required: true })
   code: number;
 
-  @Prop()
+  @Prop({ required: true })
   password: string;
 
-  @Prop()
+  @Prop({ required: true })
   email: string;
 }
 
