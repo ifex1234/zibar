@@ -2,20 +2,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type LoginDocument = HydratedDocument<Login>;
+export type LoginDocument = HydratedDocument<Auth>;
 
-@Schema({ timestamps: true })
+@Schema()
 //The @Schema() decorator marks a class as a schema definition. It maps our Login class to a
 //MongoDB collection of the same name, but with an additional “s” at the end -
-export class Login {
-  @Prop({ required: true, unique: true, immutable: true, trim: true })
+export class Auth {
+  @Prop({ required: true })
   username: string;
 
-  @Prop({ required: true, trim: true })
+  @Prop({ required: true })
   password: string;
-
-  @Prop({ required: true, unique: true })
-  email: string;
 }
 
-export const LoginSchema = SchemaFactory.createForClass(Login);
+export const AuthSchema = SchemaFactory.createForClass(Auth);

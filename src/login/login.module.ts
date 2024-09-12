@@ -11,5 +11,6 @@ import { Login, LoginSchema } from './login.schema';
   ],
   controllers: [LoginController],
   providers: [LoginService],
+  exports: [MongooseModule, LoginService],
 })
 export class LoginModule {}

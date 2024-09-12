@@ -11,6 +11,7 @@ async function bootstrap() {
     .setDescription('vehicle indentification management system')
     .setVersion('1.0')
     .addTag('VIMS')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document, { jsonDocumentUrl: 'api/json' });

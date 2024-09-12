@@ -6,12 +6,20 @@ import { UpdateLoginDto } from './dto/update-login.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Login } from './login.schema';
 import { ILogin } from '../login/interface/login.interface';
+import * as bcrypt from 'bcrypt';
+export const roundsOfHashing = 10;
 @Injectable()
 export class LoginService {
   constructor(@InjectModel(Login.name) private LoginModel: Model<Login>) {}
-  async create(createLoginDto: CreateLoginDto): Promise<ILogin> {
-    const createdLogin = new this.LoginModel(createLoginDto);
-    return createdLogin.save();
+  async create(createLoginDto: CreateLoginDto) {
+    // const createdLogin = new this.LoginModel(createLoginDto);
+    // return createdLogin.save();
+    const hashedPassword = await bcrypt.hash(
+      createLoginDto.password,
+      roundsOfHashing,
+    );
+    createLoginDto.password = hashedPassword;
+    return this.LoginModel.create(createLoginDto);
   }
 
   async findAll(): Promise<ILogin[]> {
@@ -22,30 +30,33 @@ export class LoginService {
     return data;
   }
 
-  async findOne(id: number): Promise<ILogin> {
-    const data = await this.LoginModel.findById(id).exec();
+  async findOne(username: string): Promise<ILogin> {
+    const data = await this.LoginModel.findById(username).exec();
     if (!data) {
-      throw new NotFoundException(`user #${id} not found`);
+      throw new NotFoundException(`user #${username} not found`);
     }
     return data;
   }
 
-  async update(id: number, updateLoginDto: UpdateLoginDto): Promise<ILogin> {
+  async update(
+    username: string,
+    updateLoginDto: UpdateLoginDto,
+  ): Promise<ILogin> {
     const existingUser = await this.LoginModel.findByIdAndUpdate(
-      id,
+      username,
       updateLoginDto,
       { new: true },
     );
     if (!existingUser) {
-      throw new NotFoundException(`user #${id} not found`);
+      throw new NotFoundException(`user #${username} not found`);
     }
     return existingUser;
   }
 
-  async remove(id: number): Promise<ILogin> {
-    const data = await this.LoginModel.findByIdAndDelete(id);
+  async remove(username: string): Promise<ILogin> {
+    const data = await this.LoginModel.findByIdAndDelete(username);
     if (!data) {
-      throw new NotFoundException(`Student #${id} not found`);
+      throw new NotFoundException(`user #${username} not found`);
     }
     return data;
   }

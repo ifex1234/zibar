@@ -9,16 +9,27 @@ import {
   Delete,
   HttpStatus,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { LoginService } from './login.service';
 import { CreateLoginDto } from './dto/create-login.dto';
 import { UpdateLoginDto } from './dto/update-login.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { LoginEntity } from './entities/login.entity';
 
 @Controller('api/login')
+@ApiTags('login')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
   @Post()
+  @ApiCreatedResponse({ type: LoginEntity })
   async create(@Res() response, @Body() createLoginDto: CreateLoginDto) {
     try {
       const newUser = await this.loginService.create(createLoginDto);
@@ -37,6 +48,9 @@ export class LoginController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({ type: LoginEntity })
+  @ApiBearerAuth()
   async findAll(@Res() response) {
     try {
       const data = await this.loginService.findAll();
@@ -49,10 +63,12 @@ export class LoginController {
     }
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string, @Res() response) {
+  @Get(':username')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  async findOne(@Param('username') username: string, @Res() response) {
     try {
-      const data = await this.loginService.findOne(+id);
+      const data = await this.loginService.findOne(username);
       return response.status(HttpStatus.OK).json({
         message: 'user found successfully',
         data,
@@ -62,15 +78,17 @@ export class LoginController {
     }
   }
 
-  @Patch(':id')
+  @Patch(':username')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async update(
-    @Param('id') id: string,
+    @Param('username') username: string,
     @Body() updateLoginDto: UpdateLoginDto,
     @Res() response,
   ) {
     try {
       const existingStudent = await this.loginService.update(
-        Number(id),
+        username,
         updateLoginDto,
       );
       return response.status(HttpStatus.OK).json({
@@ -82,10 +100,12 @@ export class LoginController {
     }
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string, @Res() response) {
+  @Delete(':username')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  async remove(@Param('username') username: string, @Res() response) {
     try {
-      const data = await this.loginService.remove(Number(id));
+      const data = await this.loginService.remove(username);
       return response.status(HttpStatus.OK).json({
         message: 'user deleted successfully',
         data,

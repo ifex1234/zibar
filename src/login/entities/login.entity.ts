@@ -9,8 +9,6 @@ export class LoginEntity {
   email: string;
   @ApiProperty()
   username: string;
-  @ApiProperty()
-  code: number;
   @Exclude()
   @ApiProperty()
   password: string;

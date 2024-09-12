@@ -10,7 +10,6 @@ import { LoginSchema } from './login/login.schema';
 import { LoginController } from './login/login.controller';
 import { LoginService } from './login/login.service';
 import { DriverLicenceModule } from './driver-licence/driver-licence.module';
-import { ProofOfOwnershipModule } from './proof-of-ownership/proof-of-ownership.module';
 import { RoadWorthinessModule } from './road-worthiness/road-worthiness.module';
 
 @Module({
@@ -24,7 +23,6 @@ import { RoadWorthinessModule } from './road-worthiness/road-worthiness.module';
     //We use the forFeature() method to register the models in the current scope.
     MongooseModule.forFeature([{ name: 'Login', schema: LoginSchema }]),
     DriverLicenceModule,
-    ProofOfOwnershipModule,
     RoadWorthinessModule,
   ],
   controllers: [AppController, LoginController],

@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {
   IsNotEmpty,
-  IsNumber,
   IsString,
   MaxLength,
   MinLength,
@@ -13,18 +12,14 @@ export class CreateLoginDto {
   @MaxLength(15)
   @IsNotEmpty()
   @ApiProperty()
-  readonly username: string;
-  @IsNumber()
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly code: number;
+  username: string;
   @IsString()
   @IsNotEmpty()
   @IsEmail()
   @ApiProperty()
-  readonly email: string;
+  email: string;
   @IsString()
   @MinLength(6)
   @IsNotEmpty()
-  readonly password: string;
+  password: string;
 }
