@@ -18,7 +18,7 @@ export class AuthService {
   async signIn(username: string, pass: string): Promise<AuthEntity> {
     const user = await this.loginService.findOne(username);
     if (!user) {
-      throw new NotFoundException(`No user found for email: ${username}`);
+      throw new NotFoundException(`No user found for username: ${username}`);
     }
     const isPasswordValid = user.password === pass;
     if (!isPasswordValid) {

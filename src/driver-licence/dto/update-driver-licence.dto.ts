@@ -1,4 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { PartialType } from '@nestjs/swagger';
-import { CreateDriverLicenceDto } from './create-driver-licence.dto';
+import { CreateVehicleLicenceDto } from './create-driver-licence.dto';
 
-export class UpdateDriverLicenceDto extends PartialType(CreateDriverLicenceDto) {}
+export class UpdateVehicleLicenceDto extends PartialType(
+  CreateVehicleLicenceDto,
+) {}

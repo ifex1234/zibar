@@ -55,7 +55,7 @@ export class LoginController {
     try {
       const data = await this.loginService.findAll();
       return response.status(HttpStatus.OK).json({
-        message: 'All students data found successfully',
+        message: 'All users data found successfully',
         data,
       });
     } catch (error) {
@@ -87,13 +87,10 @@ export class LoginController {
     @Res() response,
   ) {
     try {
-      const existingStudent = await this.loginService.update(
-        username,
-        updateLoginDto,
-      );
+      const data = await this.loginService.update(username, updateLoginDto);
       return response.status(HttpStatus.OK).json({
-        message: 'Student has been successfully updated',
-        existingStudent,
+        message: 'user has been successfully updated',
+        data,
       });
     } catch (err) {
       return response.status(err.status).json(err.response);
