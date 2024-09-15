@@ -3,6 +3,7 @@ import { Document } from 'mongoose';
 
 export interface IVehicleLicence extends Document {
   readonly fileNumber: number;
+  readonly VIN: string;
 
   readonly regNumber: string;
 
@@ -16,7 +17,7 @@ export interface IVehicleLicence extends Document {
 
   readonly licenceFee: number;
 
-  readonly dateIssued: Date;
+  // readonly dateIssued: Date;
 
-  readonly dateExpiry: Date;
+  // readonly dateExpiry: Date;
 }

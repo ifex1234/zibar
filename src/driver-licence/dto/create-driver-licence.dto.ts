@@ -9,6 +9,9 @@ export class CreateVehicleLicenceDto {
   //endpoint to create a new document.
   @ApiProperty()
   @IsNotEmpty()
+  VIN: string;
+  @ApiProperty()
+  @IsNotEmpty()
   fileNumber: number;
   @ApiProperty()
   @IsNotEmpty()
@@ -28,10 +31,13 @@ export class CreateVehicleLicenceDto {
   @ApiProperty()
   @IsNotEmpty()
   licenceFee: number;
-  @ApiProperty()
-  @IsNotEmpty()
-  dateIssued: Date;
-  @ApiProperty()
-  @IsNotEmpty()
-  dateExpiry: Date;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // dateIssued: Date;
+  // @ApiProperty({
+  //   description: 'The date the vehicle licence is to expire',
+  //   type: Date,
+  // })
+  // @IsNotEmpty()
+  // dateExpiry: Date;
 }

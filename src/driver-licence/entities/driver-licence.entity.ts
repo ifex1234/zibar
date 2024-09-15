@@ -2,6 +2,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class VehicleLicenceEntity {
   @ApiProperty()
+  VIN: string;
+  @ApiProperty()
   fileNumber: number;
   @ApiProperty()
   regNumber: string;
@@ -15,9 +17,9 @@ export class VehicleLicenceEntity {
   colour: string;
   @ApiProperty()
   licenceFee: number;
-  @ApiProperty()
-  dateIssued: Date;
-  @ApiProperty()
-  dateExpiry: Date;
+  // @ApiProperty()
+  // dateIssued: Date;
+  // @ApiProperty()
+  // dateExpiry: Date;
 }
 //Entity class that will be used to represent the object in the API layer, shape what we are expecting from our response.

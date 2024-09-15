@@ -31,7 +31,7 @@ export class LoginService {
   }
 
   async findOne(username: string): Promise<ILogin> {
-    const data = await this.LoginModel.findById(username).exec();
+    const data = await this.LoginModel.findOne({ username: username }).exec();
     if (!data) {
       throw new NotFoundException(`user #${username} not found`);
     }
@@ -42,8 +42,8 @@ export class LoginService {
     username: string,
     updateLoginDto: UpdateLoginDto,
   ): Promise<ILogin> {
-    const existingUser = await this.LoginModel.findByIdAndUpdate(
-      username,
+    const existingUser = await this.LoginModel.findOneAndUpdate(
+      { username: username },
       updateLoginDto,
       { new: true },
     );
@@ -54,7 +54,7 @@ export class LoginService {
   }
 
   async remove(username: string): Promise<ILogin> {
-    const data = await this.LoginModel.findByIdAndDelete(username);
+    const data = await this.LoginModel.findOneAndDelete({ username });
     if (!data) {
       throw new NotFoundException(`user #${username} not found`);
     }
