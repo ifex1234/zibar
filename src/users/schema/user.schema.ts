@@ -21,11 +21,11 @@ export class User {
   LGAOfResidence: string;
   @Prop({ required: true, trim: true })
   address: string;
-  @Prop({ required: true, trim: true })
+  @Prop({ required: true, trim: true, unique: true })
   driverLicenceNo: string;
-  @Prop({ required: true, trim: true })
+  @Prop({ required: true, trim: true, unique: true })
   email: string;
-  @Prop({ required: true, trim: true })
+  @Prop({ required: true, trim: true, unique: true })
   phoneNo: number;
 }
 

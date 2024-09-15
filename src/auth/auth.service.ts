@@ -7,6 +7,7 @@ import {
 import { LoginService } from 'src/login/login.service';
 import { JwtService } from '@nestjs/jwt';
 import { AuthEntity } from './entity/auth.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -20,12 +21,14 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException(`No user found for username: ${username}`);
     }
-    const isPasswordValid = user.password === pass;
+    const isPasswordValid = await bcrypt.compare(pass, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid password');
     }
     return {
-      accessToken: this.jwt_Service.sign({ userUnique: user.username }),
+      accessToken: await this.jwt_Service.signAsync({
+        userUnique: user.id,
+      }),
     };
   }
 }

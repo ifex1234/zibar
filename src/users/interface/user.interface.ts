@@ -6,6 +6,7 @@ export class IUser extends Document {
   readonly firstName: string;
   readonly lastName: string;
   readonly NIN: string;
+  readonly VIN: string;
   readonly stateOfOrigin: string;
   readonly stateOfResidence: string;
   readonly LGAOfResidence: string;

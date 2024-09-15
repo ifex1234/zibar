@@ -39,15 +39,14 @@ export class VehicleLicenceController {
   @ApiCreatedResponse({ type: VehicleLicenceEntity })
   async create(
     @Res({ passthrough: true }) response: Response,
-    @Body() createDriverLicenceDto: CreateVehicleLicenceDto,
+    @Body() createVehicleLicenceDto: CreateVehicleLicenceDto,
   ) {
     try {
       const data = await this.vehicleLicenceService.create(
-        createDriverLicenceDto,
+        createVehicleLicenceDto,
       );
       return response.status(HttpStatus.CREATED).json({
-        message:
-          'Vehicle licence successfully created has been created successfully',
+        message: 'Vehicle licence has been created successfully',
         data,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

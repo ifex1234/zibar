@@ -24,15 +24,15 @@ import {
 import { Response } from 'express';
 import { UserEntity } from './entities/user.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-@Controller('vin')
+@Controller('/vin')
 @ApiTags('vin')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @ApiCreatedResponse()
+  @ApiCreatedResponse({ status: 201, description: 'VIN successfully created' })
   @ApiBearerAuth()
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @HttpCode(201)
   @Header('Cache-Control', 'none')
   async create(
@@ -56,7 +56,7 @@ export class UsersController {
   }
 
   @Get()
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ type: UserEntity })
   @ApiBearerAuth()
   @HttpCode(200)
@@ -77,7 +77,7 @@ export class UsersController {
   @HttpCode(200)
   @ApiOkResponse({ type: UserEntity })
   async findOne(
-    @Param('vin') vin: string,
+    @Param('id') vin: string,
     @Res({ passthrough: true }) response: Response,
   ) {
     try {
@@ -91,17 +91,17 @@ export class UsersController {
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @HttpCode(201)
   @ApiOkResponse({ type: UserEntity })
   update(
-    @Param('id') nin: string,
+    @Param('id') vin: string,
     @Body() updateUserDto: UpdateUserDto,
     @Res({ passthrough: true }) response: Response,
   ) {
     try {
-      const data = this.usersService.update(nin, updateUserDto);
+      const data = this.usersService.update(vin, updateUserDto);
       return response
         .status(HttpStatus.ACCEPTED)
         .json({ message: 'data returned successfully', data });

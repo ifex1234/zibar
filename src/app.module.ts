@@ -19,8 +19,6 @@ import { UsersService } from './users/users.service';
 import { UserSchema } from './users/schema/user.schema';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule } from '@nestjs/config';
-import { HealthController } from './health/health.controller';
-
 @Module({
   imports: [
     ConfigModule.forRoot({ cache: true, isGlobal: true }), //As accessing process.env can be slow, we set the cache property
@@ -49,7 +47,6 @@ import { HealthController } from './health/health.controller';
     LoginController,
     VehicleLicenceController,
     UsersController,
-    HealthController,
   ],
   providers: [AppService, LoginService, VehicleLicenceService, UsersService],
 })

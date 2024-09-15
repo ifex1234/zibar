@@ -26,24 +26,24 @@ export class UsersService {
     return data;
   }
 
-  async findOne(nin: string): Promise<IUser> {
-    const data = await this.userModel.findOne({ NIN: nin });
+  async findOne(vin: string): Promise<IUser> {
+    const data = await this.userModel.findOne({ VIN: vin });
     if (!data) {
-      throw new NotFoundException(`Record with the VIN ${nin} does not exist`);
+      throw new NotFoundException(`Record with the VIN ${vin} does not exist`);
     }
     return data;
   }
 
-  async update(nin: string, updateUserDto: UpdateUserDto): Promise<IUser> {
+  async update(vin: string, updateUserDto: UpdateUserDto): Promise<IUser> {
     const data = await this.userModel.findOneAndUpdate(
-      { NIN: nin },
+      { VIN: vin },
       updateUserDto,
       {
         new: true,
       },
     );
     if (!data) {
-      throw new NotFoundException(`record with VIN:${nin} not found`);
+      throw new NotFoundException(`record with VIN:${vin} not found`);
     }
     return data;
   }

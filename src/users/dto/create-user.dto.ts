@@ -6,6 +6,10 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
+  VIN: string;
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
   firstName: string;
   @IsString()
   @IsNotEmpty()
